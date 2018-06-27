@@ -6,16 +6,15 @@
 #define APPLICATION_QUESTION_H
 
 #include "string"
+#include "PrintableObject.h"
 
 using namespace std;
 
-class Question {
-    string text;
-
+class Question : public PrintableObject {
 public:
-    Question(string _text) : text(_text) {}
+    Question(string _text);
     Question& operator=(const Question& other);
-    string getQuestionText() const;
+    string printString();
 };
 
 
