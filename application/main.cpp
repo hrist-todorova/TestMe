@@ -1,12 +1,11 @@
 #include <iostream>
-#include "src/Question.h"
+#include "src/UserInterface.h"
 
 using namespace std;
 
 int main() {
 
-    Question test = Question("Oh, hi Mark");
-    cout << test.printString();
+    UserInterface();
 
     return 0;
 }
