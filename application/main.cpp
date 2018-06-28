@@ -1,6 +1,7 @@
 #include <iostream>
 #include "src/UserInterface.h"
 #include "src/Question.h"
+#include "src/Answer.h"
 #include "vector"
 
 using namespace std;
@@ -13,12 +14,16 @@ int main() {
     t.push_back("lala");
     t.push_back("data");
     t.push_back("lana del rey");
-    string name = "Q";
+    string name = "Question";
 
-    Question ta = Question(name, t);
+    vector<Answer> la;
+    la.push_back(Answer("pate", true));
+    la.push_back(Answer("papa", false));
+    la.push_back(Answer("he", true));
 
-    cout << ta.hasTag("katy perry") << endl;
-    cout << ta.hasTag("lana del rey") << endl;
+    Question ta = Question(name, t, la);
+
+    cout << ta.getPrintString();
 
     return 0;
 }

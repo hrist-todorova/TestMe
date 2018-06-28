@@ -3,11 +3,12 @@
 //
 
 #include "Question.h"
-#include <algorithm>
+#include "iostream"
 
-Question::Question(string &_text, vector<string> &_tags) {
+Question::Question(string &_text, vector<string> &_tags, vector<Answer> &_answers) {
     this->text = _text;
     this->tags = _tags;
+    this->answers = _answers;
 }
 
 Question& Question::operator=(const Question& other){
@@ -17,8 +18,12 @@ Question& Question::operator=(const Question& other){
     return *this;
 }
 
-string Question::printString() {
-    return "[Q] " + getString();
+string Question::getPrintString() {
+    string result = "[Q] " + text + "\n";
+    for(int i = 0; i < answers.size(); i++) {
+        result += answers[i].getPrintString();
+    }
+    return result;
 }
 
 bool Question::hasTag(string tag) {
