@@ -8,7 +8,7 @@
 
 using namespace std;
 
-File::File(string &_filename) {
+File::File(string _filename) {
     this->filename = filename;
 }
 

@@ -12,7 +12,7 @@ using namespace std;
 class File {
     string filename;
 public:
-    File(string &_filename);
+    File(string _filename);
     void read();
     void write(string text);
     void truncate();
