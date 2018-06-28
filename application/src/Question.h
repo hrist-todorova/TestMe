@@ -7,14 +7,17 @@
 
 #include "string"
 #include "PrintableObject.h"
+#include "vector"
 
 using namespace std;
 
 class Question : public PrintableObject {
+    vector<string> tags;
 public:
-    Question(string _text);
+    Question(string &_text, vector<string> &_tags);
     Question& operator=(const Question& other);
     string printString();
+    bool hasTag(string tag);
 };
 
 

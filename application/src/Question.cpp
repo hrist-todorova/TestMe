@@ -3,9 +3,11 @@
 //
 
 #include "Question.h"
+#include <algorithm>
 
-Question::Question(string _text) {
+Question::Question(string &_text, vector<string> &_tags) {
     this->text = _text;
+    this->tags = _tags;
 }
 
 Question& Question::operator=(const Question& other){
@@ -17,4 +19,11 @@ Question& Question::operator=(const Question& other){
 
 string Question::printString() {
     return "[Q] " + getString();
+}
+
+bool Question::hasTag(string tag) {
+    if (find(this->tags.begin(), this->tags.end(), tag) != this->tags.end()) {
+        return true;
+    }
+    return false;
 }

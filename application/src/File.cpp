@@ -8,6 +8,10 @@
 
 using namespace std;
 
+File::File(string &_filename) {
+    this->filename = filename;
+}
+
 void File::read() {
     ifstream fileStream(this->filename);
     if(fileStream.is_open()) {
