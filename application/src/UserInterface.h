@@ -11,8 +11,6 @@
 using namespace std;
 
 class UserInterface {
-    string fileName;
-    int questionsCount;
 private:
     void greeting();
     void askForSettings();

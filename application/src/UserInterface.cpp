@@ -43,12 +43,15 @@ void UserInterface::askForSettings() {
 
 void UserInterface::createQuestionsFile() {
     cout << "How would you like to name the file?" << endl;
+    string fileName = "DEFAULT";
     cin >> fileName;
     cleanInput();
+    // ask for test title
     cout << "How many questions would you like to enter?" << endl;
+    int questionsCount = 0;
     cin >> questionsCount;
     cleanInput();
-
+    // append each 10 elements
     // add new class here
 
     cout << "Thank you. Your file is being created ..." << endl;

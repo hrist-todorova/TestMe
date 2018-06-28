@@ -5,7 +5,7 @@
 #include "Question.h"
 #include "iostream"
 
-Question::Question(string &_text, vector<string> &_tags, vector<Answer> &_answers) {
+Question::Question(string _text, vector<string> &_tags, vector<Answer> &_answers) {
     this->text = _text;
     this->tags = _tags;
     this->answers = _answers;
@@ -20,11 +20,13 @@ Question& Question::operator=(const Question& other){
 
 string Question::getPrintString() {
     string result = "[Q] " + text + "\n";
-    result += "[T] ";
-    for(int i = 0; i < tags.size(); i++) {
-        result += "{" + tags[i] + "}";
+    if(tags.size() > 0) {
+        result += "[T] ";
+        for (int i = 0; i < tags.size(); i++) {
+            result += "{" + tags[i] + "}";
+        }
+        result += "\n";
     }
-    result += "\n";
     for(int i = 0; i < answers.size(); i++) {
         result += answers[i].getPrintString();
     }
