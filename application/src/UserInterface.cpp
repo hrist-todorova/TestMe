@@ -48,22 +48,11 @@ void UserInterface::createQuestionsFile() {
     cout << "How many questions would you like to enter?" << endl;
     cin >> questionsCount;
     cleanInput();
-    for(int i = 0; i < questionsCount; i++) {
-        cout << "Question number " << i + 1 << " ";
-        addUserQuestion();
-    }
+
+    // add new class here
+
     cout << "Thank you. Your file is being created ..." << endl;
     //add creation code here
-}
-
-void UserInterface::addUserQuestion() {
-    string questionText;
-    vector<string> tags;
-    vector<Answer> answers;
-    cout << "Please write the question and press ENTER" << endl;
-    cin >> questionText;
-    cleanInput();
-    inputQuestions.emplace_back(Question(questionText, tags, answers));
 }
 
 void UserInterface::createExam() {}
