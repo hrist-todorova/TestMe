@@ -20,6 +20,11 @@ Question& Question::operator=(const Question& other){
 
 string Question::getPrintString() {
     string result = "[Q] " + text + "\n";
+    result += "[T] ";
+    for(int i = 0; i < tags.size(); i++) {
+        result += "{" + tags[i] + "}";
+    }
+    result += "\n";
     for(int i = 0; i < answers.size(); i++) {
         result += answers[i].getPrintString();
     }
