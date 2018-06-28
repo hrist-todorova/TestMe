@@ -14,10 +14,12 @@ using namespace std;
 class Test : public PrintableObject{
     vector<Question> questions;
 public:
-    Test(string _name, int _questionsCount);
+    Test(int _questionsCount);
     Test& operator=(const Test& other);
     void addQuestion(Question question);
     string getPrintString();
+    void deleteQuestions();
+    unsigned long getQuestionsCount();
 };
 
 
