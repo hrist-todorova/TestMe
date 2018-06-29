@@ -24,9 +24,17 @@ vector<Question> File::extractQuestions() {
     ifstream fileStream(this->filename);
     if(fileStream.is_open()) {
         string temp;
+
+        string question_prefix = "[Q] ";
+
         while(std::getline(fileStream, temp)) {
-            questions.push_back(Question(temp));
+            auto res = std::mismatch(question_prefix.begin(), question_prefix.end(), temp.begin());
+            if(res.first == question_prefix.end()) {
+                Question q = Question(temp);
+                questions.push_back(q);
+            }
         }
+
     } else {
         throw invalid_argument("File " + this->filename + " not found");
     }
