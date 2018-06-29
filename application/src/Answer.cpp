@@ -37,8 +37,8 @@ Answer& Answer::operator=(const Answer &other) {
 
 string Answer::getPrintString() {
     if(isCorrect){
-        return "[+] " + getString() + " ";
+        return "[+] " + getString() + "\n";
     } else {
-        return "[-] " + getString() + " ";
+        return "[-] " + getString() + "\n";
     }
 }
