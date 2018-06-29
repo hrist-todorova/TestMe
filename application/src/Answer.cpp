@@ -55,3 +55,10 @@ string Answer::getPrintString() {
         return "[-] " + getString() + "\n";
     }
 }
+
+/*
+ * Returns the field isCorrect.
+ */
+bool Answer::answerIsCorrect() {
+    return isCorrect;
+}

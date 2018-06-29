@@ -5,6 +5,7 @@
 #include "src/Test.h"
 #include "src/File.h"
 #include "vector"
+#include "tests/test_string_interpreter.cpp"
 
 using namespace std;
 

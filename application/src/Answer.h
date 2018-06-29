@@ -17,6 +17,7 @@ public:
     Answer& operator=(const Answer& other);
     Answer(string input);
     string getPrintString();
+    bool answerIsCorrect();
 };
 
 
