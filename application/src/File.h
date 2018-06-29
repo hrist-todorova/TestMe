@@ -13,6 +13,7 @@ class File {
     string filename;
 public:
     File(string _filename);
+    File& operator=(const File& other);
     void read();
     void write(string text);
     void truncate();

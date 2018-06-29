@@ -12,12 +12,19 @@ File::File(string _filename) {
     this->filename = _filename;
 }
 
+File& File::operator=(const File &other) {
+    if(this == &other)
+        return* this;
+    this->filename = other.filename;
+    return *this;
+}
+
 void File::read() {
     ifstream fileStream(this->filename);
     if(fileStream.is_open()) {
         string temp;
         while(std::getline(fileStream, temp)) {
-            cout << temp;
+            cout << temp << endl;
         }
     } else {
         throw invalid_argument("File " + this->filename + " not found");
