@@ -12,7 +12,13 @@ Question::Question(string _text, vector<string> &_tags, vector<Answer> &_answers
 }
 
 Question::Question(string input) {
-    this->text = "done";
+    string prefix = "[Q] ";
+    auto res = std::mismatch(prefix.begin(), prefix.end(), input.begin());
+    if (res.first == prefix.end()) {
+        this->text = input.substr(prefix.size());
+    } else {
+        throw invalid_argument(input + " is not in valid Question format");
+    }
     return;
 }
 
@@ -23,17 +29,28 @@ Question& Question::operator=(const Question& other){
     return *this;
 }
 
+void Question::setTags(vector<string> _tags) {
+    this->tags = _tags;
+}
+
+void Question::setAnswers(vector<Answer> _answers) {
+    this->answers = _answers;
+}
+
 string Question::getPrintString() {
-    string result = "[Q] " + text + "\n";
+    string result = "[Q] " + text;
     if(tags.size() > 0) {
+        result += "\n";
         result += "[T] ";
         for (int i = 0; i < tags.size(); i++) {
             result += "{" + tags[i] + "}";
         }
-        result += "\n";
     }
-    for(int i = 0; i < answers.size(); i++) {
-        result += answers[i].getPrintString();
+    if(answers.size() > 0) {
+        result += "\n";
+        for(int i = 0; i < answers.size(); i++) {
+            result += answers[i].getPrintString();
+        }
     }
     return result;
 }

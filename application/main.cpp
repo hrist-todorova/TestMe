@@ -12,9 +12,21 @@ int main() {
 
     //UserInterface();
 
-    string t = Answer("This is true", false).getPrintString();
+    string t = Question("[Q] This is question").getPrintString();
+    vector<string> tags;
+    vector<Answer> ans;
 
-    Answer two = Answer(t);
+    tags.push_back("tag1");
+    tags.push_back("beb");
+    ans.push_back(Answer("This is correct", true));
+    ans.push_back(Answer("This is correct", true));
+    ans.push_back(Answer("This is incorrect", false));
+
+
+
+    Question two = Question(t);
+    two.setAnswers(ans);
+    two.setTags(tags);
     cout << two.getPrintString();
 
     return 0;
