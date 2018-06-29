@@ -8,10 +8,17 @@
 
 using namespace std;
 
+/*
+ * Constructor for class File.
+ * It accepts one argument - the name of the file.
+ */
 File::File(string _filename) {
     this->filename = _filename;
 }
 
+/*
+ * Copy assignment operator for class File.
+ */
 File& File::operator=(const File &other) {
     if(this == &other)
         return* this;
@@ -19,6 +26,9 @@ File& File::operator=(const File &other) {
     return *this;
 }
 
+/*
+ * This should be in another class.
+ */
 vector<Question> File::extractQuestions() {
     vector<Question> questions;
     ifstream fileStream(this->filename);
@@ -41,6 +51,9 @@ vector<Question> File::extractQuestions() {
     return questions;
 }
 
+/*
+ * Append argument to the file.
+ */
 void File::write(string text) {
     ofstream fileStream;
     fileStream.open(this->filename, ofstream::app);
@@ -52,6 +65,9 @@ void File::write(string text) {
     }
 }
 
+/*
+ * Delete the contents of the file.
+ */
 void File::truncate() {
     ofstream fileStream;
     fileStream.open(this->filename, ofstream::trunc);

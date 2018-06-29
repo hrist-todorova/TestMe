@@ -9,15 +9,24 @@
 
 using namespace std;
 
+/*
+ * Constructor of class UserInterface. When it is called it greets the user and ask questions to get the users intent.
+ */
 UserInterface::UserInterface() {
     greeting();
     askForSettings();
 }
 
+/*
+ * A simple greeting.
+ */
 void UserInterface::greeting() {
     cout << "Hello! My name is TestMe and I will help you make a great exam :)" << endl << endl;
 }
 
+/*
+ * User should choose if he wants to create a question file or open one which exists already to make exam
+ */
 void UserInterface::askForSettings() {
     cout << "First of all, do you want to create a file with questions? (Y/N)" << endl;
     cout << "If you have a file already please choose 'N'\n> ";
@@ -42,6 +51,9 @@ void UserInterface::askForSettings() {
     throw logic_error(response);
 }
 
+/*
+ * This will be changed
+ */
 void UserInterface::createQuestionsFile() {
     cout << "How would you like to name the file? (No spaces between words)" << endl;
     string fileName = "DEFAULT";
@@ -59,6 +71,9 @@ void UserInterface::createQuestionsFile() {
     //add creation code here
 }
 
+/*
+ * This will be changed
+ */
 void UserInterface::createExam() {
     unsigned long testsCount, questionsCount = 0;
     cout << "How many tests would you like to create?" << endl;
@@ -76,6 +91,9 @@ void UserInterface::createExam() {
     File file = File(filename);
 }
 
+/*
+ * A functions which cleans up the input stream.
+ */
 void UserInterface::cleanInput() {
     cin.clear();
     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');

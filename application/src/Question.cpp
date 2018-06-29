@@ -5,12 +5,19 @@
 #include "Question.h"
 #include "iostream"
 
+/*
+ * Constructor for class Question.
+ * It accepts three argument - the text of the question, vector of tags and vector of answers.
+ */
 Question::Question(string _text, vector<string> &_tags, vector<Answer> &_answers) {
     this->text = _text;
     this->tags = _tags;
     this->answers = _answers;
 }
 
+/*
+ * This should be in another class.
+ */
 Question::Question(string input) {
     string prefix = "[Q] ";
     auto res = std::mismatch(prefix.begin(), prefix.end(), input.begin());
@@ -22,6 +29,9 @@ Question::Question(string input) {
     return;
 }
 
+/*
+ * Copy assignment operator for class Question.
+ */
 Question& Question::operator=(const Question& other){
     if(this == &other)
         return* this;
@@ -29,6 +39,9 @@ Question& Question::operator=(const Question& other){
     return *this;
 }
 
+/*
+ * TODO
+ */
 void Question::setTags(string input) {
     string prefix = "[T] ";
     auto res = std::mismatch(prefix.begin(), prefix.end(), input.begin());
@@ -42,10 +55,16 @@ void Question::setTags(string input) {
 
 }
 
+/*
+ * TODO
+ */
 void Question::setAnswers(vector<Answer> _answers) {
     this->answers = _answers;
 }
 
+/*
+ * This should be in another class.
+ */
 string Question::getPrintString() {
     string result = "[Q] " + text;
     if(tags.size() > 0) {
@@ -64,6 +83,9 @@ string Question::getPrintString() {
     return result;
 }
 
+/*
+ * Checks if this question has the argument as a tag.
+ */
 bool Question::hasTag(string tag) {
     if (find(this->tags.begin(), this->tags.end(), tag) != this->tags.end()) {
         return true;

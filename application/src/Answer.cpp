@@ -4,11 +4,18 @@
 
 #include "Answer.h"
 
+/*
+ * Constructor for class Answer.
+ * It accepts two arguments - the text of the answer and a boolean indicating if the answer is true or false.
+ */
 Answer::Answer(string _text, bool _isCorrect) {
     this->text = _text;
     this->isCorrect = _isCorrect;
 }
 
+/*
+ * This should be in another class.
+ */
 Answer::Answer(string input) {
     string positive_prefix = "[+] ";
     auto res = std::mismatch(positive_prefix.begin(), positive_prefix.end(), input.begin());
@@ -27,6 +34,9 @@ Answer::Answer(string input) {
     }
 }
 
+/*
+ * Copy assignment operator for class Answer.
+ */
 Answer& Answer::operator=(const Answer &other) {
     if(this == &other)
         return* this;
@@ -35,6 +45,9 @@ Answer& Answer::operator=(const Answer &other) {
     return *this;
 }
 
+/*
+ * This should be in another class.
+ */
 string Answer::getPrintString() {
     if(isCorrect){
         return "[+] " + getString() + "\n";

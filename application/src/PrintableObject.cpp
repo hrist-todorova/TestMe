@@ -4,6 +4,9 @@
 
 #include "PrintableObject.h"
 
+/*
+ * Standard getter for the field text.
+ */
 string PrintableObject::getString() const {
     return this->text;
 };
