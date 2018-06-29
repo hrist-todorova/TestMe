@@ -5,6 +5,7 @@
 #include <iostream>
 #include "UserInterface.h"
 #include "File.h"
+#include "Exam.h"
 
 using namespace std;
 
@@ -33,7 +34,7 @@ void UserInterface::askForSettings() {
         return;
     }
     if(answer == "N") {
-        createQuestionsFile();
+        createExam();
         return;
     }
     string response = "This is not a possible option : ";
@@ -42,7 +43,7 @@ void UserInterface::askForSettings() {
 }
 
 void UserInterface::createQuestionsFile() {
-    cout << "How would you like to name the file?" << endl;
+    cout << "How would you like to name the file? (No spaces between words)" << endl;
     string fileName = "DEFAULT";
     cin >> fileName;
     cleanInput();
@@ -58,7 +59,23 @@ void UserInterface::createQuestionsFile() {
     //add creation code here
 }
 
-void UserInterface::createExam() {}
+void UserInterface::createExam() {
+    unsigned long testsCount, questionsCount = 0;
+    cout << "How many tests would you like to create?" << endl;
+    cin >> testsCount;
+    cleanInput();
+    cout << "How many questions would you like every test to have?" << endl;
+    cin >> questionsCount;
+    cleanInput();
+    //add checks here
+
+    Exam newExam = Exam(testsCount, questionsCount);
+    cout << "From which file whould you like to get the questions from?" << endl;
+    string file;
+    cin >> file;
+    cleanInput();
+
+}
 
 void UserInterface::cleanInput() {
     cin.clear();
