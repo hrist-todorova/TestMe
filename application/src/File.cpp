@@ -9,7 +9,7 @@
 using namespace std;
 
 File::File(string _filename) {
-    this->filename = filename;
+    this->filename = _filename;
 }
 
 void File::read() {

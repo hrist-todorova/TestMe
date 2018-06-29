@@ -3,14 +3,16 @@
 #include "src/Question.h"
 #include "src/Answer.h"
 #include "src/Test.h"
+#include "src/File.h"
 #include "vector"
 
 using namespace std;
 
 int main() {
 
-    UserInterface();
+    //UserInterface();
 
+    File("pate.txt").read();
 
     return 0;
 }
