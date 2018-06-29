@@ -19,16 +19,18 @@ File& File::operator=(const File &other) {
     return *this;
 }
 
-void File::read() {
+vector<Question> File::extractQuestions() {
+    vector<Question> questions;
     ifstream fileStream(this->filename);
     if(fileStream.is_open()) {
         string temp;
         while(std::getline(fileStream, temp)) {
-            cout << temp << endl;
+            questions.push_back(Question(temp));
         }
     } else {
         throw invalid_argument("File " + this->filename + " not found");
     }
+    return questions;
 }
 
 void File::write(string text) {

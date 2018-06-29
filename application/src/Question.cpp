@@ -11,6 +11,11 @@ Question::Question(string _text, vector<string> &_tags, vector<Answer> &_answers
     this->answers = _answers;
 }
 
+Question::Question(string input) {
+    this->text = "done";
+    return;
+}
+
 Question& Question::operator=(const Question& other){
     if(this == &other)
         return* this;
@@ -19,13 +24,13 @@ Question& Question::operator=(const Question& other){
 }
 
 string Question::getPrintString() {
-    string result = "[Q] " + text + "\n";
+    string result = "[Q] " + text + " ";
     if(tags.size() > 0) {
         result += "[T] ";
         for (int i = 0; i < tags.size(); i++) {
             result += "{" + tags[i] + "}";
         }
-        result += "\n";
+        result += " ";
     }
     for(int i = 0; i < answers.size(); i++) {
         result += answers[i].getPrintString();

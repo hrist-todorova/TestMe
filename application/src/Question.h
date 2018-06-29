@@ -17,6 +17,7 @@ class Question : public PrintableObject {
     vector<Answer> answers;
 public:
     Question(string _text, vector<string> &_tags, vector<Answer> &_answers);
+    Question(string input);
     Question& operator=(const Question& other);
     string getPrintString();
     bool hasTag(string tag);

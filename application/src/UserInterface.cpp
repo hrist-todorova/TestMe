@@ -74,7 +74,6 @@ void UserInterface::createExam() {
     cin >> filename;
     cleanInput();
     File file = File(filename);
-    file.read();
 }
 
 void UserInterface::cleanInput() {

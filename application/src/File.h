@@ -6,6 +6,8 @@
 #define APPLICATION_FILE_H
 
 #include "string"
+#include "vector"
+#include "Question.h"
 
 using namespace std;
 
@@ -14,7 +16,7 @@ class File {
 public:
     File(string _filename);
     File& operator=(const File& other);
-    void read();
+    vector<Question> extractQuestions();
     void write(string text);
     void truncate();
 };

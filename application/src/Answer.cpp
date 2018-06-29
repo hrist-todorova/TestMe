@@ -11,8 +11,8 @@ Answer::Answer(string _text, bool _isCorrect) {
 
 string Answer::getPrintString() {
     if(isCorrect){
-        return "[+] " + getString() + "\n";
+        return "[+] " + getString() + " ";
     } else {
-        return "[-] " + getString() + "\n";
+        return "[-] " + getString() + " ";
     }
 }

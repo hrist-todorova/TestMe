@@ -12,7 +12,8 @@ int main() {
 
     //UserInterface();
 
-    File("pate.txt").read();
+    vector<Question> v = File("test4e.txt").extractQuestions();
+    cout << v[0].getPrintString();
 
     return 0;
 }
