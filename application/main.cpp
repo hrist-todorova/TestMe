@@ -12,8 +12,10 @@ int main() {
 
     //UserInterface();
 
-    vector<Question> v = File("test4e.txt").extractQuestions();
-    cout << v[0].getPrintString();
+    string t = Answer("This is true", false).getPrintString();
+
+    Answer two = Answer(t);
+    cout << two.getPrintString();
 
     return 0;
 }

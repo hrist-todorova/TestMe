@@ -14,6 +14,8 @@ class Answer : public PrintableObject{
     bool isCorrect;
 public:
     Answer(string _text, bool _isCorrect);
+    Answer& operator=(const Answer& other);
+    Answer(string input);
     string getPrintString();
 };
 
