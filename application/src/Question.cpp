@@ -29,8 +29,17 @@ Question& Question::operator=(const Question& other){
     return *this;
 }
 
-void Question::setTags(vector<string> _tags) {
-    this->tags = _tags;
+void Question::setTags(string input) {
+    string prefix = "[T] ";
+    auto res = std::mismatch(prefix.begin(), prefix.end(), input.begin());
+    if (res.first == prefix.end()) {
+        vector<string> a;
+        a.push_back("todo");
+        this->tags = a;
+    } else {
+        throw invalid_argument(input + " is not in valid Question format");
+    }
+
 }
 
 void Question::setAnswers(vector<Answer> _answers) {

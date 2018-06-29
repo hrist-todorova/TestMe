@@ -19,7 +19,7 @@ public:
     Question(string _text, vector<string> &_tags, vector<Answer> &_answers);
     Question(string input);
     Question& operator=(const Question& other);
-    void setTags(vector<string> _tags);
+    void setTags(string _tags);
     void setAnswers(vector<Answer> _answers);
     string getPrintString();
     bool hasTag(string tag);
