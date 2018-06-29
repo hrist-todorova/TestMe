@@ -1,0 +1,9 @@
+TestMe - Creation of Exams
+
+This application offers interactive creation of files with questions
+
+TODO:
+- finish interactive creation
+- finish generation of exams
+- another class taking care of conversion of strings to class instances
+- PDF library
