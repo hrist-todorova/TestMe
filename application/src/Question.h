@@ -9,21 +9,22 @@
 #include "vector"
 #include "PrintableObject.h"
 #include "Answer.h"
+#include "Tag.h"
 
 using namespace std;
 
 class Question : public PrintableObject {
-    vector<string> tags;
+    vector<Tag> tags;
     vector<Answer> answers;
 public:
-    Question(string _text, vector<string> &_tags, vector<Answer> &_answers);
-    Question(string input);
+    Question(string _text);
+    Question(string _text, vector<Tag> &_tags, vector<Answer> &_answers);
     Question& operator=(const Question& other);
     void setTags(string _tags);
     void setAnswers(vector<Answer> _answers);
     string getPrintString();
-    vector<string> getTags();
-    vector<Answer> getAnswers();
+    vector<Tag> getTags() const;
+    vector<Answer> getAnswers() const;
     bool hasTag(string tag);
 };
 

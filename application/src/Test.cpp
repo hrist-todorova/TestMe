@@ -29,16 +29,6 @@ void Test::addQuestion(Question question) {
     questions.push_back(question);
 }
 
-/*
- * This should be in another class.
- */
-string Test::getPrintString() {
-    string result = "";
-    for(int i = 0; i < questions.size(); i++) {
-        result += questions[i].getPrintString();
-    }
-    return result;
-}
 
 /*
  * Deletes all questions in the test.

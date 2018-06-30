@@ -3,22 +3,57 @@
 //
 
 #include "StringInterpreter.h"
+#include <regex>
 
 Answer StringInterpreter::stringToAnswer(string input) {
-    return Answer("todo", true); // do later
+    string prefix = "[+] ";
+    auto res = std::mismatch(prefix.begin(), prefix.end(), input.begin());
+    if (res.first == prefix.end()) {
+        string text = input.substr(prefix.size());
+        bool isCorrect = true;
+        return Answer(text, isCorrect);
+    } else {
+        prefix = "[-] ";
+        res = std::mismatch(prefix.begin(), prefix.end(), input.begin());
+        if (res.first == prefix.end()) {
+            string text = input.substr(prefix.size());
+            bool isCorrect = false;
+            return Answer(text, isCorrect);
+        }
+    }
+    throw invalid_argument(input + " is not in valid Answer format");
 }
 
 vector<Tag> StringInterpreter::stringToTags(string input) {
-
+    string prefix = "[T] ";
+    vector<Tag> result;
+    auto res = std::mismatch(prefix.begin(), prefix.end(), input.begin());
+    if (res.first == prefix.end()) {
+        string seq = input.substr(prefix.size());
+        regex rgx("(\\w+)");
+        regex_iterator<string::iterator> it(seq.begin(), seq.end(), rgx);
+        regex_iterator<string::iterator> end;
+        for(; it != end; ++it) {
+            result.push_back(it->str());
+        }
+    } else {
+        throw invalid_argument(input + " is not in valid Tag format");
+    }
+    return result;
 }
 
 Question StringInterpreter::stringToQuestion(string input) {
-    vector<string> tags;
-    vector<Answer> answers;
-    return Question("doto", tags, answers);
+    string prefix = "[Q] ";
+    auto res = std::mismatch(prefix.begin(), prefix.end(), input.begin());
+    if (res.first == prefix.end()) {
+        string text = input.substr(prefix.size());
+        return Question(text);
+    } else {
+        throw invalid_argument(input + " is not in valid Question format");
+    }
 }
 
-string StringInterpreter::answerToString(Answer &answer) { //TESTED
+string StringInterpreter::answerToString(Answer &answer) {
     if(answer.answerIsCorrect()){
         return "[+] " + answer.getString();
     } else {
@@ -41,19 +76,17 @@ string StringInterpreter::tagsToString(vector<Tag> &tag) {
 
 string StringInterpreter::questionToString(Question &question) {
     string result = "[Q] " + question.getString();
-    vector<string> tags = question.getTags();
+    vector<Tag> tags = question.getTags();
     if(tags.size() > 0) {
         result += "\n";
-        result += "[T] ";
-        for (int i = 0; i < tags.size(); i++) {
-            result += "{" + tags[i] + "}";
+        result += tagsToString(tags);
+    }
+    vector<Answer> answers = question.getAnswers();
+    if(answers.size() > 0) {
+        for(int i = 0; i < answers.size(); i++) {
+            result += "\n";
+            result += answerToString(answers[i]);
         }
     }
-   /* if(answers.size() > 0) {
-        result += "\n";
-        for(int i = 0; i < answers.size(); i++) {
-            result += answers[i].getPrintString();
-        }
-    }*/
     return result;
 }
