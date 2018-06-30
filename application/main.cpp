@@ -4,6 +4,7 @@
 #include "src/Answer.h"
 #include "src/Test.h"
 #include "src/File.h"
+#include "src/StringInterpreter.h"
 #include "vector"
 #include "tests/test_string_interpreter.cpp"
 
@@ -13,9 +14,12 @@ int main() {
 
     //UserInterface();
 
-   vector<Question> q = File("test4e.txt").extractQuestions();
+//   vector<Question> q = File("test4e.txt").extractQuestions();
 
-   cout << q[0].getPrintString();
+  // cout << q[0].getPrintString();
+
+    runStringInterpreterTest();
+
 
     return 0;
 }

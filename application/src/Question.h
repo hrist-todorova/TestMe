@@ -22,6 +22,8 @@ public:
     void setTags(string _tags);
     void setAnswers(vector<Answer> _answers);
     string getPrintString();
+    vector<string> getTags();
+    vector<Answer> getAnswers();
     bool hasTag(string tag);
 };
 

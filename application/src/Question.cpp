@@ -83,6 +83,14 @@ string Question::getPrintString() {
     return result;
 }
 
+vector<string> Question::getTags() {
+    return this->tags;
+}
+
+vector<Answer> Question::getAnswers() {
+    return this->answers;
+}
+
 /*
  * Checks if this question has the argument as a tag.
  */
