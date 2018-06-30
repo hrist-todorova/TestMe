@@ -56,7 +56,7 @@ void testStringToTags() {
     vec.push_back(Tag("three"));
     vector<Tag> result = StringInterpreter().stringToVectorOfTags(testString);
     for(int i = 0; i < result.size(); i++) {
-        assert(result[i].getTag() == vec[i].getTag());
+        assert(result[i].getString() == vec[i].getString());
     }
     cout << "testTagsToString passed" << endl;
 }

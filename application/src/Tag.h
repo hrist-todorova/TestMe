@@ -11,10 +11,8 @@
 using namespace std;
 
 class Tag : public PrintableObject {
-    string text;
 public:
     Tag(string _text);
-    string getTag();
 };
 
 

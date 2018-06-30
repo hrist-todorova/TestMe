@@ -88,7 +88,7 @@ string StringInterpreter::tagsToString(vector<Tag> &tag) {
     if(tag.size() > 0) {
         result += tagPrefix;
         for(int i = 0; i < tag.size(); i++) {
-            string newTag = "{" + tag[i].getTag() + "}";
+            string newTag = "{" + tag[i].getString() + "}";
             result += newTag;
         }
     }
