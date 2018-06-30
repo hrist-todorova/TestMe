@@ -12,13 +12,13 @@ using namespace std;
 
 int main() {
 
-    //UserInterface();
+    UserInterface();
 
 //   vector<Question> q = File("test4e.txt").extractQuestions();
 
   // cout << q[0].getPrintString();
 
-    runStringInterpreterTest();
+    //runStringInterpreterTest();
 
 
     return 0;

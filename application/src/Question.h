@@ -20,9 +20,8 @@ public:
     Question(string _text);
     Question(string _text, vector<Tag> &_tags, vector<Answer> &_answers);
     Question& operator=(const Question& other);
-    void setTags(string _tags);
-    void setAnswers(vector<Answer> _answers);
-    string getPrintString();
+    void setTags(vector<Tag> _tags);
+    void addAnswer(Answer _answers);
     vector<Tag> getTags() const;
     vector<Answer> getAnswers() const;
     bool hasTag(string tag);

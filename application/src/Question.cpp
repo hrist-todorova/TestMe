@@ -36,17 +36,14 @@ Question& Question::operator=(const Question& other){
     return *this;
 }
 
-/*
- * TODO
- */
-void Question::setTags(string input) {
+
+void Question::setTags(vector<Tag> _tags) {
+    this->tags = _tags;
 }
 
-/*
- * TODO
- */
-void Question::setAnswers(vector<Answer> _answers) {
-    this->answers = _answers;
+
+void Question::addAnswer(Answer _answers) {
+    this->answers.push_back(_answers);
 }
 
 vector<Tag> Question::getTags() const{
