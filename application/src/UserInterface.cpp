@@ -3,99 +3,143 @@
 //
 
 #include <iostream>
+#include <limits>
 #include "UserInterface.h"
 #include "File.h"
 #include "Exam.h"
+#include "StringInterpreter.h"
 
-using namespace std;
+#define appendAfterNumberOfElements 10
 
 /*
  * Constructor of class UserInterface. When it is called it greets the user and ask questions to get the users intent.
  */
 UserInterface::UserInterface() {
-    greeting();
-    askForSettings();
+    print("Hello! My name is TestMe and I will help you make a great exam :)");
+    askForUsersIntent();
 }
 
 /*
- * A simple greeting.
+ * While interacting with the user figure out if they want to create a file with questions or generate an exam.
  */
-void UserInterface::greeting() {
-    cout << "Hello! My name is TestMe and I will help you make a great exam :)" << endl << endl;
-}
+void UserInterface::askForUsersIntent() {
+    print("First of all, do you want to create a file with questions? (Y/N)");
+    print("If you have a file already please choose 'N'");
+    string shouldCreateFile;
+    cin >> shouldCreateFile;
+    cleanStandardInput();
 
-/*
- * User should choose if he wants to create a question file or open one which exists already to make exam
- */
-void UserInterface::askForSettings() {
-    cout << "First of all, do you want to create a file with questions? (Y/N)" << endl;
-    cout << "If you have a file already please choose 'N'\n> ";
-    string answer;
-    cin >> answer;
-    while(answer != "Y" && answer != "N"){
-        cout << "Please answer with 'Y' or 'N'\n> ";
-        cleanInput();
-        cin >> answer;
+    while(shouldCreateFile != "Y" && shouldCreateFile != "N"){
+        print("Please enter 'Y' or 'N'");
+        cin >> shouldCreateFile;
+        cleanStandardInput();
     }
 
-    if(answer == "Y") {
+    if(shouldCreateFile == "Y") {
         createQuestionsFile();
         return;
     }
-    if(answer == "N") {
-        createExam();
+    if(shouldCreateFile == "N") {
+        generateExam();
         return;
     }
-    string response = "This is not a possible option : ";
-    response += answer;
-    throw logic_error(response);
 }
 
 /*
- * This will be changed
+ * Clears the standard input for future I/O operations.
+ */
+void UserInterface::cleanStandardInput() {
+    //Clears the error flag
+    cin.clear();
+    //Skips to the next newline in order to ignore anything else on the same line
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+}
+
+/*
+ * Writes argument text to the standard output and adds a newline.
+ */
+void UserInterface::print(string text) {
+    cout << text << endl;
+}
+
+/*
+ * Creates Test object which holds the questions the user inputs. Periodically they are appended to a file.
  */
 void UserInterface::createQuestionsFile() {
-    cout << "How would you like to name the file? (No spaces between words)" << endl;
-    string fileName = "DEFAULT";
-    cin >> fileName;
-    cleanInput();
-    // ask for test title
-    cout << "How many questions would you like to enter?" << endl;
+    print("How would you like to name the file?");
+    string fileName;
+    getline(cin, fileName);
+
+    print("How many questions would you like to enter?");
     int questionsCount = 0;
     cin >> questionsCount;
-    cleanInput();
-    // append each 10 elements
-    // add new class here
+    cleanStandardInput();
 
-    cout << "Thank you. Your file is being created ..." << endl;
-    //add creation code here
+    File newFile = File(fileName);
+    //delete content of file if it exist
+    newFile.truncate();
+
+    Test newTest = Test(questionsCount);
+    for(int i = 0; i < questionsCount; i++) {
+        newTest.addQuestion(getNewQuestion(i + 1));
+        if(newTest.getQuestionsCount() == appendAfterNumberOfElements) {
+            //each time we have exactly appendAfterNumberOfElements questions in the test we append them to the file
+            //and delete the current ones from the test object
+            vector<Question> questionsVec = newTest.getQuestions();
+            string questionsString = StringInterpreter().questionsToString(questionsVec);
+            newFile.write(questionsString);
+            newTest.deleteQuestions();
+        }
+    }
+    //add the rest of the questions which are not yet appended
+    vector<Question> questionsVec = newTest.getQuestions();
+    string questionsString = StringInterpreter().questionsToString(questionsVec);
+    newFile.write(questionsString);
+    newTest.deleteQuestions();
+
+    print("Your file has been created");
+    return;
 }
 
 /*
- * This will be changed
+ * Creates a question object.
  */
-void UserInterface::createExam() {
+Question UserInterface::getNewQuestion(int number) {
+    print("Please enter question number " + to_string(number));
+    string text;
+    getline(cin, text);
+    Question question = Question(text);
+    //TODO: Add tag creation
+    //TODO: Add answers creation
+    return question;
+}
+
+/*
+ * Using an existing file with questions generates an Exam with different Tests
+ */
+void UserInterface::generateExam() {
     unsigned long testsCount, questionsCount = 0;
-    cout << "How many tests would you like to create?" << endl;
+    print("How many tests would you like to create?");
     cin >> testsCount;
-    cleanInput();
-    cout << "How many questions would you like every test to have?" << endl;
-    cin >> questionsCount;
-    cleanInput();
-//TODO : ask for the name of the exam
-    Exam newExam = Exam("",testsCount, questionsCount);
-    cout << "From which file whould you like to get the questions from?" << endl;
-    string filename;
-    cin >> filename;
-    cleanInput();
-    File file = File(filename);
-    file.extractQuestions();
-}
+    cleanStandardInput();
 
-/*
- * A functions which cleans up the input stream.
- */
-void UserInterface::cleanInput() {
-    cin.clear();
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    print("How many questions would you like every test to have?");
+    cin >> questionsCount;
+    cleanStandardInput();
+
+    string examName;
+    print("What is the name of the exam you want to create?");
+    getline(cin, examName);
+    Exam newExam = Exam(examName,testsCount, questionsCount);
+
+    string filename;
+    print("From which file would you like to get the questions from?");
+    getline(cin, filename);
+    File file = File(filename);
+
+    vector<Question> questions = file.extractQuestions();
+
+    //TODO: Make actual test variants
+
+    return;
 }

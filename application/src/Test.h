@@ -20,6 +20,7 @@ public:
     string getPrintString();
     void deleteQuestions();
     unsigned long getQuestionsCount();
+    vector<Question> getQuestions();
 };
 
 

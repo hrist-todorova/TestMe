@@ -118,3 +118,15 @@ string StringInterpreter::questionToString(Question &question) {
 
     return result;
 }
+
+/*
+ * Covert vector of Question objects to a string.
+ */
+string StringInterpreter::questionsToString(vector<Question>& questions){
+    string result = "";
+    for (int i = 0; i < questions.size(); i++) {
+        result += questionToString(questions[i]) + "\n";
+    }
+
+    return result;
+}

@@ -86,7 +86,7 @@ void File::write(string text) {
 }
 
 /*
- * Delete the contents of the file.
+ * Delete the contents of the file. If the file doesn't exist it is created.
  */
 void File::truncate() {
     ofstream fileStream;

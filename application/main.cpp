@@ -13,18 +13,7 @@ using namespace std;
 
 int main() {
 
-   // UserInterface();
-
-//   vector<Question> q = File("test4e.txt").extractQuestions();
-
-  // cout << q[0].getPrintString();
-
-   // runStringInterpreterTest();
-
-    Test test = Test(5);
-
-    cout << test.getQuestionsCount();
-
+    UserInterface();
 
     return 0;
 }

@@ -6,17 +6,18 @@
 #define APPLICATION_USERINTERFACE_H
 
 #include "string"
-#include "vector"
+#include "Question.h"
 
 using namespace std;
 
 class UserInterface {
 private:
-    void greeting();
-    void askForSettings();
+    void askForUsersIntent();
     void createQuestionsFile();
-    void createExam();
-    void cleanInput();
+    void generateExam();
+    void cleanStandardInput();
+    void print(string text);
+    Question getNewQuestion(int number);
 public:
     UserInterface();
 };

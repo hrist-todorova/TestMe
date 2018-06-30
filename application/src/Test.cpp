@@ -42,3 +42,10 @@ void Test::deleteQuestions() {
 unsigned long Test::getQuestionsCount() {
     return questions.size();
 }
+
+/*
+ * Standard getter for the vector of questions
+ */
+vector<Question> Test::getQuestions() {
+    return this->questions;
+}

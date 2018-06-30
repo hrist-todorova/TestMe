@@ -26,6 +26,7 @@ public:
     string answerToString(Answer& answer);
     string tagsToString(vector<Tag>& tag);
     string questionToString(Question& question);
+    string questionsToString(vector<Question>& questions);
 };
 
 
