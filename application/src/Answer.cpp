@@ -14,27 +14,6 @@ Answer::Answer(string _text, bool _isCorrect) {
 }
 
 /*
- * This should be in another class.
- */
-Answer::Answer(string input) {
-    string positive_prefix = "[+] ";
-    auto res = std::mismatch(positive_prefix.begin(), positive_prefix.end(), input.begin());
-    if (res.first == positive_prefix.end()) {
-        this->text = input.substr(positive_prefix.size());
-        this->isCorrect = true;
-    } else {
-        string negative_prefix = "[-] ";
-        res = std::mismatch(negative_prefix.begin(), negative_prefix.end(), input.begin());
-        if (res.first == negative_prefix.end()) {
-            this->text = input.substr(negative_prefix.size());
-            this->isCorrect = false;
-        } else {
-            throw invalid_argument(input + " is not in valid Answer format");
-        }
-    }
-}
-
-/*
  * Copy assignment operator for class Answer.
  */
 Answer& Answer::operator=(const Answer &other) {
@@ -46,18 +25,7 @@ Answer& Answer::operator=(const Answer &other) {
 }
 
 /*
- * This should be in another class.
- */
-string Answer::getPrintString() {
-    if(isCorrect){
-        return "[+] " + getString() + "\n";
-    } else {
-        return "[-] " + getString() + "\n";
-    }
-}
-
-/*
- * Returns the field isCorrect.
+ * Returns boolean is the answer is correct or not.
  */
 bool Answer::answerIsCorrect() {
     return isCorrect;
