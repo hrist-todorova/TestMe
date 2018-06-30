@@ -3,7 +3,6 @@
 //
 
 #include <fstream>
-#include "iostream"
 #include "File.h"
 #include "StringInterpreter.h"
 
@@ -28,38 +27,41 @@ File& File::operator=(const File &other) {
 }
 
 /*
- * This should be in another class.
+ * Read the contents of the file and create and return a vector of questions.
  */
 vector<Question> File::extractQuestions() {
     vector<Question> questions;
     ifstream fileStream(this->filename);
     if(fileStream.is_open()) {
-        string temp;
+        string file_line;
 
+        //Types of possible prefixes of each line
         string question_prefix = "[Q] ";
         string tags_prefix = "[T] ";
         string positive_answer_prefix = "[+] ";
         string negative_answer_prefix = "[-] ";
 
-        while(std::getline(fileStream, temp)) {
+        while(getline(fileStream, file_line)) {
+            //Check the prefix of file_line and either add a new question or change last one
+            //std::mismatch returns the first mismatching pair of elements from two ranges
+
             //question
-            auto res = std::mismatch(question_prefix.begin(), question_prefix.end(), temp.begin());
-            if(res.first == question_prefix.end()) {
-                Question q = Question(temp);
-                questions.push_back(q);
+            auto question_mismatch = mismatch(question_prefix.begin(), question_prefix.end(), file_line.begin());
+            if(question_mismatch.first == question_prefix.end()) {
+                questions.push_back(Question(file_line));
                 continue;
             }
             //tags
-            res = std::mismatch(tags_prefix.begin(), tags_prefix.end(), temp.begin());
-            if(res.first == tags_prefix.end()) {
-                questions[questions.size() - 1].setTags(StringInterpreter().stringToTags(temp));
+            auto tags_mismatch = mismatch(tags_prefix.begin(), tags_prefix.end(), file_line.begin());
+            if(tags_mismatch.first == tags_prefix.end()) {
+                questions[questions.size() - 1].setTags(StringInterpreter().stringToTags(file_line));
                 continue;
             }
             //positive_answer or negative_answer
-            auto positive_answer = std::mismatch(positive_answer_prefix.begin(), positive_answer_prefix.end(), temp.begin());
-            auto negative_answer = std::mismatch(negative_answer_prefix.begin(), negative_answer_prefix.end(), temp.begin());
-            if(positive_answer.first == positive_answer_prefix.end() || negative_answer.first == negative_answer_prefix.end()) {
-                questions[questions.size() - 1].addAnswer(StringInterpreter().stringToAnswer(temp));
+            auto positive_answer_mismatch = mismatch(positive_answer_prefix.begin(), positive_answer_prefix.end(), file_line.begin());
+            auto negative_answer_mismatch = mismatch(negative_answer_prefix.begin(), negative_answer_prefix.end(), file_line.begin());
+            if(positive_answer_mismatch.first == positive_answer_prefix.end() || negative_answer_mismatch.first == negative_answer_prefix.end()) {
+                questions[questions.size() - 1].addAnswer(StringInterpreter().stringToAnswer(file_line));
                 continue;
             }
         }
@@ -70,7 +72,7 @@ vector<Question> File::extractQuestions() {
 }
 
 /*
- * Append argument to the file.
+ * Append text to the file. If the file doesn't exist it is created.
  */
 void File::write(string text) {
     ofstream fileStream;
@@ -79,7 +81,7 @@ void File::write(string text) {
         fileStream << text;
         fileStream.close();
     } else {
-        throw invalid_argument("File " + this->filename + " not found");
+        throw invalid_argument("Error opening file " + this->filename);
     }
 }
 
@@ -92,6 +94,6 @@ void File::truncate() {
     if(fileStream.is_open()) {
         fileStream.close();
     } else {
-        throw invalid_argument("File " + this->filename + " not found");
+        throw invalid_argument("Error opening file " + this->filename);
     }
 }
