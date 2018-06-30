@@ -11,7 +11,7 @@
 
 using namespace std;
 
-class Test : public PrintableObject{
+class Test : public PrintableObject {
     vector<Question> questions;
 public:
     Test(int _questionsCount);

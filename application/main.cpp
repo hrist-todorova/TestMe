@@ -19,8 +19,11 @@ int main() {
 
   // cout << q[0].getPrintString();
 
-    runStringInterpreterTest();
+   // runStringInterpreterTest();
 
+    Test test = Test(5);
+
+    cout << test.getQuestionsCount();
 
 
     return 0;

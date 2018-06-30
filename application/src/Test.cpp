@@ -6,7 +6,7 @@
 
 /*
  * Constructor for class Test.
- * It accepts one argument - how many questions we will have.
+ * It accepts one argument - how many questions vector questions will have.
  */
 Test::Test(int _questionsCount) {
     this->questions.reserve(_questionsCount);
@@ -29,7 +29,6 @@ void Test::addQuestion(Question question) {
     questions.push_back(question);
 }
 
-
 /*
  * Deletes all questions in the test.
  */
@@ -38,7 +37,7 @@ void Test::deleteQuestions() {
 }
 
 /*
- * Returns number of questions currently in the Test.
+ * Returns the number of questions that currently in the vector with questions.
  */
 unsigned long Test::getQuestionsCount() {
     return questions.size();
