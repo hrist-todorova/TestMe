@@ -10,9 +10,11 @@
 
 using namespace std;
 
-class Tags {
+class Tag {
     vector<string> labels;
 public:
+    void addLabel(string _label);
+    vector<string> getLabels();
 };
 
 
