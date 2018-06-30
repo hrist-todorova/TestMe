@@ -13,7 +13,6 @@ class PrintableObject {
 protected:
     string text;
 public:
-    virtual string getPrintString() = 0;
     string getString() const;
 };
 

@@ -23,7 +23,23 @@ void testAnswerToStringTrueAnswer() {
     cout << "testAnswerToStringTrueAnswer passed" << endl;
 }
 
+void testTagsToStringWhenEmpty() {
+    vector<Tag> tags;
+    assert(StringInterpreter().tagsToString(tags) == "");
+    cout << "testTagsToStringWhenEmpty passed" << endl;
+}
+
+void testTagsToString() {
+    vector<Tag> tags;
+    tags.push_back(Tag("first_tag"));
+    tags.push_back(Tag("second_tag"));
+    assert(StringInterpreter().tagsToString(tags) == "[T] {first_tag}{second_tag}");
+    cout << "testTagsToString passed" << endl;
+}
+
 void runStringInterpreterTest() {
     testAnswerToStringFalseAnswer();
     testAnswerToStringTrueAnswer();
+    testTagsToStringWhenEmpty();
+    testTagsToString();
 }

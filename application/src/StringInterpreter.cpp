@@ -8,18 +8,35 @@ Answer StringInterpreter::stringToAnswer(string input) {
     return Answer("todo", true); // do later
 }
 
+vector<Tag> StringInterpreter::stringToTags(string input) {
+
+}
+
 Question StringInterpreter::stringToQuestion(string input) {
     vector<string> tags;
     vector<Answer> answers;
     return Question("doto", tags, answers);
 }
 
-string StringInterpreter::answerToString(Answer &answer) {
+string StringInterpreter::answerToString(Answer &answer) { //TESTED
     if(answer.answerIsCorrect()){
         return "[+] " + answer.getString();
     } else {
         return "[-] " + answer.getString();
     }
+}
+
+
+string StringInterpreter::tagsToString(vector<Tag> &tag) {
+    string result = "";
+    if(tag.size() > 0) {
+        result += "[T] ";
+        for(int i = 0; i < tag.size(); i++) {
+            string newTag = "{" + tag[i].getTag() + "}";
+            result += newTag;
+        }
+    }
+    return result;
 }
 
 string StringInterpreter::questionToString(Question &question) {

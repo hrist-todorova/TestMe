@@ -4,10 +4,10 @@
 
 #include "Tag.h"
 
-void Tag::addLabel(string _label) {
-    this->labels.push_back(_label);
+Tag::Tag(string _text) {
+    this->text = _text;
 }
 
-vector<string> Tag::getLabels() {
-    return this->labels;
+string Tag::getTag() {
+    return this->text;
 }

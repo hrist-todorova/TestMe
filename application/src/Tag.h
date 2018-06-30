@@ -5,16 +5,16 @@
 #ifndef APPLICATION_TAG_H
 #define APPLICATION_TAG_H
 
-#include "vector"
+#include "PrintableObject.h"
 #include "string"
 
 using namespace std;
 
-class Tag {
-    vector<string> labels;
+class Tag : public PrintableObject {
+    string text;
 public:
-    void addLabel(string _label);
-    vector<string> getLabels();
+    Tag(string _text);
+    string getTag();
 };
 
 
