@@ -5,34 +5,43 @@
 #include "StringInterpreter.h"
 #include <regex>
 
+/*
+ * Convert input string to object of class Answer.
+ * If the prefix of the input is not of a positive or negative answer an exception is thrown.
+ */
 Answer StringInterpreter::stringToAnswer(string input) {
-    string prefix = "[+] ";
-    auto res = std::mismatch(prefix.begin(), prefix.end(), input.begin());
-    if (res.first == prefix.end()) {
-        string text = input.substr(prefix.size());
-        bool isCorrect = true;
-        return Answer(text, isCorrect);
+    //std::mismatch returns the first mismatching pair of elements from two ranges
+    auto res = mismatch(correctAnswerPrefix.begin(), correctAnswerPrefix.end(), input.begin());
+    if (res.first == correctAnswerPrefix.end()) {
+        string text = input.substr(correctAnswerPrefix.size());
+        return Answer(text, true);
     } else {
-        prefix = "[-] ";
-        res = std::mismatch(prefix.begin(), prefix.end(), input.begin());
-        if (res.first == prefix.end()) {
-            string text = input.substr(prefix.size());
-            bool isCorrect = false;
-            return Answer(text, isCorrect);
+
+        res = mismatch(wrongAnswerPrefix.begin(), wrongAnswerPrefix.end(), input.begin());
+        if (res.first == wrongAnswerPrefix.end()) {
+            string text = input.substr(wrongAnswerPrefix.size());
+            return Answer(text, false);
         }
     }
     throw invalid_argument(input + " is not in valid Answer format");
 }
 
-vector<Tag> StringInterpreter::stringToTags(string input) {
-    string prefix = "[T] ";
+/*
+ * Convert input string to vector of Tag objects.
+ * If the prefix of the input is not of a tag an exception is thrown.
+ */
+vector<Tag> StringInterpreter::stringToVectorOfTags(string input) {
     vector<Tag> result;
-    auto res = std::mismatch(prefix.begin(), prefix.end(), input.begin());
-    if (res.first == prefix.end()) {
-        string seq = input.substr(prefix.size());
+
+    //std::mismatch returns the first mismatching pair of elements from two ranges
+    auto res = mismatch(tagPrefix.begin(), tagPrefix.end(), input.begin());
+    if (res.first == tagPrefix.end()) {
+        string tags = input.substr(tagPrefix.size());
+        //regex is used to discover the tags encoded into the input string
         regex rgx("(\\w+)");
-        regex_iterator<string::iterator> it(seq.begin(), seq.end(), rgx);
+        regex_iterator<string::iterator> it(tags.begin(), tags.end(), rgx);
         regex_iterator<string::iterator> end;
+
         for(; it != end; ++it) {
             result.push_back(it->str());
         }
@@ -42,30 +51,42 @@ vector<Tag> StringInterpreter::stringToTags(string input) {
     return result;
 }
 
+/*
+ * Convert input string to object of class Question.
+ * If the prefix of the question is not of a tag an exception is thrown.
+ */
 Question StringInterpreter::stringToQuestion(string input) {
-    string prefix = "[Q] ";
-    auto res = std::mismatch(prefix.begin(), prefix.end(), input.begin());
-    if (res.first == prefix.end()) {
-        string text = input.substr(prefix.size());
+    //std::mismatch returns the first mismatching pair of elements from two ranges
+    auto res = mismatch(questionPrefix.begin(), questionPrefix.end(), input.begin());
+    if (res.first == questionPrefix.end()) {
+        string text = input.substr(questionPrefix.size());
         return Question(text);
     } else {
         throw invalid_argument(input + " is not in valid Question format");
     }
 }
 
+/*
+ * Covert an object of class Answer to a string.
+ */
 string StringInterpreter::answerToString(Answer &answer) {
     if(answer.answerIsCorrect()){
-        return "[+] " + answer.getString();
+        return correctAnswerPrefix + answer.getString();
     } else {
-        return "[-] " + answer.getString();
+        return wrongAnswerPrefix + answer.getString();
     }
 }
 
 
+/*
+ * Covert vector of Tag objects to a string.
+ * Each tag is one word. The string will have the form of 'tagPrefix{tag1}{tag2}' etc.
+ */
 string StringInterpreter::tagsToString(vector<Tag> &tag) {
     string result = "";
+
     if(tag.size() > 0) {
-        result += "[T] ";
+        result += tagPrefix;
         for(int i = 0; i < tag.size(); i++) {
             string newTag = "{" + tag[i].getTag() + "}";
             result += newTag;
@@ -74,19 +95,26 @@ string StringInterpreter::tagsToString(vector<Tag> &tag) {
     return result;
 }
 
+/*
+ * Covert an object of class Question to a string. The first line is the test of the question. Then follows a line of
+ * tags if there are any. After that answers are added one by one.
+ */
 string StringInterpreter::questionToString(Question &question) {
-    string result = "[Q] " + question.getString();
+    string result = questionPrefix + question.getString();
+
     vector<Tag> tags = question.getTags();
-    if(tags.size() > 0) {
+    if(!tags.empty()) {
         result += "\n";
         result += tagsToString(tags);
     }
+
     vector<Answer> answers = question.getAnswers();
-    if(answers.size() > 0) {
+    if(!answers.empty()) {
         for(int i = 0; i < answers.size(); i++) {
             result += "\n";
             result += answerToString(answers[i]);
         }
     }
+
     return result;
 }

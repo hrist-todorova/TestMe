@@ -48,13 +48,13 @@ vector<Question> File::extractQuestions() {
             //question
             auto question_mismatch = mismatch(question_prefix.begin(), question_prefix.end(), file_line.begin());
             if(question_mismatch.first == question_prefix.end()) {
-                questions.push_back(Question(file_line));
+                questions.push_back(StringInterpreter().stringToQuestion(file_line));
                 continue;
             }
             //tags
             auto tags_mismatch = mismatch(tags_prefix.begin(), tags_prefix.end(), file_line.begin());
             if(tags_mismatch.first == tags_prefix.end()) {
-                questions[questions.size() - 1].setTags(StringInterpreter().stringToTags(file_line));
+                questions[questions.size() - 1].setTags(StringInterpreter().stringToVectorOfTags(file_line));
                 continue;
             }
             //positive_answer or negative_answer
