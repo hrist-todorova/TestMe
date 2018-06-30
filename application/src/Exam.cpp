@@ -6,13 +6,13 @@
 
 /*
  * Constructor for class Exam.
- * It accepts two arguments - the number of tests for this exam and the number of questions each test should contain.
- * Also we reserve the capacity of vector tests to hold all tests which will be in this exam.
+ * It accepts three arguments - the name of the exam, the number of tests for this exam and the number of questions
+ * each test should contain.
  */
-Exam::Exam(unsigned long _numberOfTests, unsigned long _numberOfQuestions) {
+Exam::Exam(string _name, unsigned long _numberOfTests, unsigned long _numberOfQuestions) {
+    this->text = _name;
     this->numberOfTests = _numberOfTests;
     this->numberOfQuestions = _numberOfQuestions;
-    this->tests.reserve(numberOfTests);
 }
 
 /*

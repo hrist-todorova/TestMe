@@ -82,8 +82,8 @@ void UserInterface::createExam() {
     cout << "How many questions would you like every test to have?" << endl;
     cin >> questionsCount;
     cleanInput();
-
-    Exam newExam = Exam(testsCount, questionsCount);
+//TODO : ask for the name of the exam
+    Exam newExam = Exam("",testsCount, questionsCount);
     cout << "From which file whould you like to get the questions from?" << endl;
     string filename;
     cin >> filename;

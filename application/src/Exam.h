@@ -6,14 +6,17 @@
 #define APPLICATION_EXAM_H
 
 #include <vector>
+#include "string"
 #include "Test.h"
 
-class Exam {
+using namespace std;
+
+class Exam : public PrintableObject {
     unsigned long numberOfTests;
     unsigned long numberOfQuestions;
     vector<Test> tests;
 public:
-    Exam(unsigned long _numberOfTests, unsigned long _numberOfQuestions);
+    Exam(string _name, unsigned long _numberOfTests, unsigned long _numberOfQuestions);
     Exam &operator=(const Exam& other);
 };
 
