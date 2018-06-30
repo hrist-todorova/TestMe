@@ -21,6 +21,7 @@ Exam::Exam(string _name, unsigned long _numberOfTests, unsigned long _numberOfQu
 Exam& Exam::operator=(const Exam &other) {
     if(this == &other)
         return* this;
+    this->text = other.text;
     this->numberOfTests = other.numberOfTests;
     this->numberOfQuestions = other.numberOfQuestions;
     this->tests = other.tests;

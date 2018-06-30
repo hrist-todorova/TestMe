@@ -3,12 +3,11 @@
 //
 
 #include "Question.h"
-#include "iostream"
-
 
 /*
  * Constructor for class Question.
  * It accepts one argument - the text of the question.
+ * The tags and answers stay empty vectors.
  */
 Question::Question(string _text) {
     this->text = _text;
@@ -30,33 +29,36 @@ Question::Question(string _text,vector<Tag> &_tags, vector<Answer> &_answers) {
 Question& Question::operator=(const Question& other){
     if(this == &other)
         return* this;
-    this->text = other.getString();
-    this->tags = other.getTags();
-    this->answers = other.getAnswers();
+    this->text = other.text;
+    this->tags = other.tags;
+    this->answers = other.answers;
     return *this;
 }
 
-
+/*
+ * Standard setter for the vector with tags.
+ */
 void Question::setTags(vector<Tag> _tags) {
     this->tags = _tags;
 }
 
-
-void Question::addAnswer(Answer _answers) {
-    this->answers.push_back(_answers);
+/*
+ * Add answer to the vector with answers.
+ */
+void Question::addAnswer(Answer _answer) {
+    this->answers.push_back(_answer);
 }
 
+/*
+ * Standard getter for the vector with tags.
+ */
 vector<Tag> Question::getTags() const{
     return this->tags;
 }
 
+/*
+ * Standard getter for the vector with answers.
+ */
 vector<Answer> Question::getAnswers() const{
     return this->answers;
-}
-
-/*
- * Checks if this question has the argument as a tag.
- */
-bool Question::hasTag(string tag) {
-    return false;
 }

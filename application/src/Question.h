@@ -21,10 +21,9 @@ public:
     Question(string _text, vector<Tag> &_tags, vector<Answer> &_answers);
     Question& operator=(const Question& other);
     void setTags(vector<Tag> _tags);
-    void addAnswer(Answer _answers);
+    void addAnswer(Answer _answer);
     vector<Tag> getTags() const;
     vector<Answer> getAnswers() const;
-    bool hasTag(string tag);
 };
 
 
