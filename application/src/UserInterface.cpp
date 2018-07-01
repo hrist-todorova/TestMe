@@ -109,13 +109,28 @@ Question UserInterface::getNewQuestion(int number) {
     string text;
     getline(cin, text);
     Question question = Question(text);
-    //TODO: Add tag creation
+
+    print("Please enter how many tags would you like to enter");
+    int tagsCount;
+    cin >> tagsCount;
+    cleanStandardInput();
+    vector<Tag> tagsVector;
+    string tag;
+    for(int i = 0; i < tagsCount; i++) {
+        print("Please enter one word as tag number " + to_string(i));
+        cin >> tag;
+        cleanStandardInput();
+        tagsVector.push_back(Tag(tag));
+    }
+    question.setTags(tagsVector);
+
+
     //TODO: Add answers creation
     return question;
 }
 
 /*
- * Using an existing file with questions generates an Exam with different Tests
+ * Using an existing file with questions generates an Exam with different Tests.
  */
 void UserInterface::generateExam() {
     unsigned long testsCount, questionsCount = 0;
