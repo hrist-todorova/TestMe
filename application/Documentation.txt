@@ -1,9 +1,20 @@
 TestMe - Creation of Exams
 
-This application offers interactive creation of files with questions
+This application offers two functions:
+- interactive creating of files with questions
+- creating an exam from a file with questions
 
-TODO:
-- finish interactive creation
-- finish generation of exams
-- another class taking care of conversion of strings to class instances
-- PDF library
+This repository contains two folders - one for source code files and one for test files.
+
+The folder for source code is called src. It contains the .h and .cpp files for each class.
+Currently the classes the application is using are
+* Answer
+* Exam
+* File
+* PrintableObject
+* Question
+* StringInterpreter
+* Tag
+* Test
+* UserInterface
+
