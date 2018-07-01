@@ -18,3 +18,30 @@ Currently the classes the application is using are
 * Test
 * UserInterface
 
+The testing code is in folder tests. For now there are only tests for class StringInterpreter.
+
+<-------------------------------------------------------------------------------------------------------------------->
+
+Description of all classes
+
+class Answer - represents an answer which will be assigned to an object of class Question. An answer can be correct
+or wrong. This is checked by the public function answerIsCorrect();
+
+class Exam - this class represents an exam - a bunch of tests which all have different questions
+
+class File - this class performs operations on files such as writing and reading
+
+class PrintableObject - represents an object which can be converted to a string
+
+class Question - represent a question. It has text, a vector of tags and a vector of answers.
+
+class StringInterpreter - this class is responsible for translating an object from C++ class instance to a string and
+from string to C++ class instance
+
+class Tag - represents a tag which will be assigned to an object of class Question
+
+class Test - represents a test - a bunch of questions
+
+class UserInterface - this class is used for interaction with the user. There are two activities which can be
+performed - creating a file with questions or making an exam from a file with questions by writing how many tests do we
+want to do and how many questions should each test have.
