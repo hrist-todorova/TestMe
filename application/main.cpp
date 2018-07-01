@@ -6,14 +6,16 @@
 #include "src/File.h"
 #include "src/StringInterpreter.h"
 #include "vector"
-#include "tests/test_string_interpreter.cpp"
+#include "tests/run_test.cpp"
 #include "src/Tag.h"
 
 using namespace std;
 
 int main() {
 
-    UserInterface();
+    //UserInterface();
+
+    runAllTest();
 
     return 0;
 }

@@ -6,49 +6,83 @@
 #include <assert.h>
 #include "../src/StringInterpreter.h"
 
-
 using namespace std;
 
-void testAnswerToStringFalseAnswer() {
-    Answer testString = Answer("test", false);
-    string expectedString = "[-] test";
-    assert(StringInterpreter().answerToString(testString) == expectedString);
-    cout << "testAnswerToStringFalseAnswer passed" << endl;
+const string green("\033[1;32m");
+const string red("\033[0;31m");
+const string reset("\033[0m");
+
+void static markAsPassedTest(string testName) {
+    cout << green << testName << reset << endl;
 }
 
-void testAnswerToStringTrueAnswer() {
-    Answer testString = Answer("test", true);
-    string expectedString = "[+] test";
-    assert(StringInterpreter().answerToString(testString) == expectedString);
-    cout << "testAnswerToStringTrueAnswer passed" << endl;
+void static markAsNotPassedTest(string testName) {
+    cout << red << testName << reset << endl;
 }
 
-void testTagsToStringWhenEmpty() {
-    vector<Tag> tags;
-    assert(StringInterpreter().tagsToString(tags) == "");
-    cout << "testTagsToStringWhenEmpty passed" << endl;
+void static testStringToCorrectAnswer() {
+    string correctAnswer = "[+] Yes";
+    Answer answer = StringInterpreter().stringToAnswer(correctAnswer);
+    if(!answer.answerIsCorrect()) {
+        markAsNotPassedTest("testStringToCorrectAnswer failed");
+        return;
+    }
+    if(answer.getString() != "Yes") {
+        markAsNotPassedTest("testStringToCorrectAnswer failed");
+        return;
+    }
+    markAsPassedTest("testStringToCorrectAnswer passed");
 }
 
-void testTagsToString() {
-    vector<Tag> tags;
-    tags.push_back(Tag("first_tag"));
-    tags.push_back(Tag("second_tag"));
-    assert(StringInterpreter().tagsToString(tags) == "[T] {first_tag}{second_tag}");
-    cout << "testTagsToString passed" << endl;
+void static testStringToWrongAnswer() {
+    string wrongAnswer = "[-] No";
+    Answer answer = StringInterpreter().stringToAnswer(wrongAnswer);
+    if(answer.answerIsCorrect()) {
+        markAsNotPassedTest("testStringToWrongAnswer failed");
+        return;
+    }
+    if(answer.getString() != "No") {
+        markAsNotPassedTest("testStringToWrongAnswer failed");
+        return;
+    }
+    markAsPassedTest("testStringToWrongAnswer passed");
 }
 
-void testEmptyStringToTags() {
+void static testInvalidStringToAnswer() {
+    string invalidAnswer = "[Q] invalid";
+    try {
+        Answer answer = StringInterpreter().stringToAnswer(invalidAnswer);
+    }
+    catch (invalid_argument& e) {
+        markAsPassedTest("testInvalidStringToAnswer passed");
+        return;
+    }
+    markAsNotPassedTest("testInvalidStringToAnswer failed");
+}
+
+void static testEmptyStringToVectorOfTags() {
     try {
         StringInterpreter().stringToVectorOfTags("");
     }
     catch (invalid_argument& e) {
-        cout << "testStringToTags passed" << endl;
+        markAsPassedTest("testEmptyStringToVectorOfTags passed");
         return;
     }
-    throw logic_error("testStringToTags failed for empty string");
+    markAsNotPassedTest("testEmptyStringToVectorOfTags failed");
 }
 
-void testStringToTags() {
+void static testInvalidStringToVectorOfTags() {
+    try {
+        StringInterpreter().stringToVectorOfTags("I'm invalid string");
+    }
+    catch (invalid_argument& e) {
+        markAsPassedTest("testInvalidStringToVectorOfTags passed");
+        return;
+    }
+    markAsNotPassedTest("testInvalidStringToVectorOfTags failed");
+}
+
+void static testStringToVectorOfTags() {
     string testString = "[T] {bad}{good}{three}";
     vector<Tag> vec;
     vec.push_back(Tag("bad"));
@@ -56,32 +90,102 @@ void testStringToTags() {
     vec.push_back(Tag("three"));
     vector<Tag> result = StringInterpreter().stringToVectorOfTags(testString);
     for(int i = 0; i < result.size(); i++) {
-        assert(result[i].getString() == vec[i].getString());
+        if(result[i].getString() != vec[i].getString()) {
+            markAsNotPassedTest("testStringToVectorOfTags failed");
+            return;
+        }
     }
-    cout << "testTagsToString passed" << endl;
+    markAsPassedTest("testStringToVectorOfTags passed");
 }
 
-void testQuestionToStringOnlyText() {
+void static testStringToQuestion() {
+    string questionString = "[Q] How are you";
+    Question question = StringInterpreter().stringToQuestion(questionString);
+    if(question.getString() != "How are you") {
+        markAsNotPassedTest("testStringToQuestion failed");
+        return;
+    }
+    markAsPassedTest("testStringToQuestion passed");
+}
+
+void static testInvalidStringToQuestion() {
+    try {
+        StringInterpreter().stringToQuestion("I'm invalid string");
+    }
+    catch (invalid_argument& e) {
+        markAsPassedTest("testInvalidStringToQuestion passed");
+        return;
+    }
+    markAsNotPassedTest("testInvalidStringToQuestion failed");
+}
+
+void static testAnswerToStringFalseAnswer() {
+    Answer testString = Answer("test", false);
+    string expectedString = "[-] test";
+    if(StringInterpreter().answerToString(testString) != expectedString) {
+        markAsNotPassedTest("testAnswerToStringFalseAnswer failed");
+        return;
+    }
+    markAsPassedTest("testAnswerToStringFalseAnswer passed");
+}
+
+void static testAnswerToStringTrueAnswer() {
+    Answer testString = Answer("test", true);
+    string expectedString = "[+] test";
+    if(StringInterpreter().answerToString(testString) != expectedString) {
+        markAsNotPassedTest("testAnswerToStringTrueAnswer failed");
+        return;
+    }
+    markAsPassedTest("testAnswerToStringTrueAnswer passed");
+}
+
+void static testTagsToStringWhenEmpty() {
+    vector<Tag> tags;
+    if(StringInterpreter().tagsToString(tags) != "") {
+        markAsNotPassedTest("testTagsToStringWhenEmpty failed");
+        return;
+    }
+    markAsPassedTest("testTagsToStringWhenEmpty passed");
+}
+
+void static testTagsToString() {
+    vector<Tag> tags;
+    tags.push_back(Tag("first_tag"));
+    tags.push_back(Tag("second_tag"));
+    if(StringInterpreter().tagsToString(tags) != "[T] {first_tag}{second_tag}") {
+        markAsNotPassedTest("testTagsToString failed");
+        return;
+    }
+    markAsPassedTest("testTagsToString passed");
+}
+
+void static testQuestionToStringOnlyText() {
     vector<Tag> tags;
     vector<Answer> answers;
     Question question = Question("This is a question", tags, answers);
     string expectedString = "[Q] This is a question";
-    assert(StringInterpreter().questionToString(question) == expectedString);
-    cout << "testQuestionToStringOnlyText passed" << endl;
+    if(StringInterpreter().questionToString(question) != expectedString) {
+        markAsNotPassedTest("testQuestionToStringOnlyText failed");
+        return;
+    }
+    markAsPassedTest("testQuestionToStringOnlyText passed");
 }
 
-void testQuestionToStringNoAnswers() {
+void static testQuestionToStringNoAnswers() {
     vector<Tag> tags;
     tags.push_back(Tag("tag1"));
     tags.push_back(Tag("tag2"));
     vector<Answer> answers;
     Question question = Question("This is a question", tags, answers);
     string expectedString = "[Q] This is a question\n[T] {tag1}{tag2}";
-    assert(StringInterpreter().questionToString(question) == expectedString);
-    cout << "testQuestionToStringNoAnswers passed" << endl;
+    if(StringInterpreter().questionToString(question) != expectedString) {
+        markAsNotPassedTest("testQuestionToStringNoAnswers failed");
+        return;
+    }
+    markAsPassedTest("testQuestionToStringNoAnswers passed");
 }
 
-void testQuestionToStringNoTags() {
+void static testQuestionToStringNoTags() {
     vector<Tag> tags;
     vector<Answer> answers;
     answers.push_back(Answer("answer 1", false));
@@ -89,11 +193,14 @@ void testQuestionToStringNoTags() {
     answers.push_back(Answer("answer 3", false));
     Question question = Question("This is a question", tags, answers);
     string expectedString = "[Q] This is a question\n[-] answer 1\n[+] answer 2\n[-] answer 3";
-    assert(StringInterpreter().questionToString(question) == expectedString);
-    cout << "testQuestionToStringNoTags passed" << endl;
+    if(StringInterpreter().questionToString(question) != expectedString) {
+        markAsNotPassedTest("testQuestionToStringNoTags failed");
+        return;
+    }
+    markAsPassedTest("testQuestionToStringNoTags passed");
 }
 
-void testQuestionToString() {
+void static testQuestionToString() {
     vector<Tag> tags;
     tags.push_back(Tag("tag1"));
     tags.push_back(Tag("tag2"));
@@ -103,56 +210,70 @@ void testQuestionToString() {
     answers.push_back(Answer("answer 3", false));
     Question question = Question("This is a question", tags, answers);
     string expectedString = "[Q] This is a question\n[T] {tag1}{tag2}\n[-] answer 1\n[+] answer 2\n[-] answer 3";
-    assert(StringInterpreter().questionToString(question) == expectedString);
-    cout << "testQuestionToString passed" << endl;
+    if(StringInterpreter().questionToString(question) != expectedString) {
+        markAsNotPassedTest("testQuestionToString failed");
+        return;
+    }
+    markAsPassedTest("testQuestionToString passed");
 }
 
-void testStringToPositiveAnswer() {
-    string positiveAnswer = "[+] Yes";
-    Answer answer = StringInterpreter().stringToAnswer(positiveAnswer);
-    assert(answer.answerIsCorrect());
-    assert(answer.getString() == "Yes");
-    cout << "testStringToPositiveAnswer passed" << endl;
+void static testQuestionsToString() {
+    vector<Tag> tags;
+    tags.push_back(Tag("tag1"));
+    tags.push_back(Tag("tag2"));
+    vector<Answer> answers;
+    Question question1 = Question("This is a question", tags, answers);
+    Question question2 = Question("This is a question", tags, answers);
+    vector<Question> questions;
+    questions.push_back(question1);
+    questions.push_back(question2);
+    string expectedString = "[Q] This is a question\n[T] {tag1}{tag2}\n[Q] This is a question\n[T] {tag1}{tag2}\n";
+    if(StringInterpreter().questionsToString(questions) != expectedString) {
+        markAsNotPassedTest("testQuestionsToString failed");
+        return;
+    }
+    markAsPassedTest("testQuestionsToString passed");
 }
 
-void testStringToNegativeAnswer() {
-    string negativeAnswer = "[-] No";
-    Answer answer = StringInterpreter().stringToAnswer(negativeAnswer);
-    assert(!answer.answerIsCorrect());
-    assert(answer.getString() == "No");
-    cout << "testStringToNegativeAnswer passed" << endl;
-}
+void static runStringInterpreterTest() {
+    cout << "Tests for class StringInterpreter:" << endl;
 
-void testStringToQuestion() {
-    string questionString = "[Q] How are you";
-    Question question = StringInterpreter().stringToQuestion(questionString);
-    assert(question.getString() == "How are you");
-    cout << "testStringToQuestion passed" << endl;
-}
+    cout << "Testing function stringToAnswer ..." << endl;
+    testStringToCorrectAnswer();
+    testStringToWrongAnswer();
+    testInvalidStringToAnswer();
+    cout << endl;
 
-void runStringInterpreterTest() {
-    //AnswerToString
+    cout << "Testing function stringToVectorOfTags ..." << endl;
+    testEmptyStringToVectorOfTags();
+    testInvalidStringToVectorOfTags();
+    testStringToVectorOfTags();
+    cout << endl;
+
+    cout << "Testing function stringToQuestion ..." << endl;
+    testStringToQuestion();
+    testInvalidStringToQuestion();
+    cout << endl;
+
+    cout << "Testing function answerToString ..." << endl;
     testAnswerToStringFalseAnswer();
     testAnswerToStringTrueAnswer();
+    cout << endl;
 
-    //TagsToString
+    cout << "Testing function tagsToString ..." << endl;
     testTagsToStringWhenEmpty();
     testTagsToString();
+    cout << endl;
 
-    //QuestionToString
+    cout << "Testing function questionToString ..." << endl;
     testQuestionToStringOnlyText();
     testQuestionToStringNoAnswers();
     testQuestionToStringNoTags();
     testQuestionToString();
+    cout << endl;
 
-    //StringToAnswer
-    testStringToPositiveAnswer();
-    testStringToNegativeAnswer();
+    cout << "Testing function questionsToString ..." << endl;
+    testQuestionsToString();
+    cout << endl;
 
-    //StringToTags
-    testEmptyStringToTags();
-    testStringToTags();
-
-    //StringToQuestion
-    testStringToQuestion();
 }
