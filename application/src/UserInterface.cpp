@@ -174,6 +174,11 @@ void UserInterface::generateExam() {
     vector<Question> questions = file.extractQuestions();
     int availableQuestionSize = questions.size();
 
+    if(availableQuestionSize < questionsCount) {
+        print("This file doesn't have enough questions for this exam");
+        return;
+    }
+
     // have random numbers always
     srand(time(NULL));
     for(int i = 0; i < testsCount; i++) {
