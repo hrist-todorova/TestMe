@@ -1,0 +1,90 @@
+[Q] Question number 1
+[T] {tag1}
+[+] Yes, this is correct
+[-] No, this isn't correct
+[Q] Question number 2
+[-] Yes
+[+] No
+[Q] Question number 3
+[+] Answer1
+[+] Answer2
+[+] Answer3
+[Q] Question number 4
+[Q] Question number 5
+[Q] Question number 6
+[T] {tag1}{tag2}{tag3}{tag4}
+[Q] Question number 7
+[Q] Question number 8
+[+] Yes, this is correct
+[-] No, this isn't correct
+[Q] Question number 9
+[+] Yes, this is correct
+[-] No, this isn't correct
+[Q] Question number 10
+[Q] Question number 3
+[+] Answer1
+[-] Answer2
+[+] Answer3
+[Q] Question number 11
+[Q] Question number 12
+[Q] Question number 13
+[Q] Question number 14
+[Q] Question number 15
+[T] {tag1}{tag2}{tag3}{tag5}
+[Q] Question number 16
+[Q] Question number 17
+[Q] Question number 18
+[Q] Question number 3
+[-] Answer1
+[+] Answer2
+[-] Answer3
+[Q] Question number 19
+[+] Yes, this is correct
+[-] No, this isn't correct
+[Q] Question number 20
+[+] Yes, this is correct
+[-] No, this isn't correct
+[Q] Question number 21
+[Q] Question number 22
+[Q] Question number 23
+[T] {tag5}
+[Q] Question number 24
+[T] {tag5}
+[Q] Question number 25
+[Q] Question number 26
+[Q] Question number 27
+[+] Yes, this is correct
+[-] No, this isn't correct
+[Q] Question number 28
+[+] Yes, this is correct
+[-] No, this isn't correct
+[Q] Question number 29
+[Q] Question number 3
+[- Answer1
+[+] Answer2
+[+] Answer3
+[Q] Question number 30
+[Q] Question number 31
+[+] Yes, this is correct
+[-] No, this isn't correct
+[Q] Question number 32
+[Q] Question number 33
+[T] {tag1}{tag2}
+[Q] Question number 34
+[T] {tag1}{tag2}
+[Q] Question number 35
+[T] {tag1}{tag2}
+[Q] Question number 36
+[Q] Question number 37
+[Q] Question number 38
+[+] Yes, this is correct
+[-] No, this isn't correct
+[Q] Question number 3
+[-] Answer1
+[+] Answer2
+[+] Answer3
+[Q] Question number 39
+[Q] Question number 40
+[+] Yes, this is correct
+[-] No, this isn't correct
+

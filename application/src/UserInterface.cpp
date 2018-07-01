@@ -207,10 +207,11 @@ void UserInterface::generateExam() {
     }
 
     for(int i = 0; i < testsCount; i++) {
-        File test = File(newExam.getString() + "-test-" + to_string(i));
+        File test = File(newExam.getString() + "-test-" + to_string(i) + ".txt");
         vector<Question> questions = newExam.getTest(i).getQuestions();
         test.write(StringInterpreter().questionsToString(questions));
     }
 
+    print("Your test files are ready");
     return;
 }

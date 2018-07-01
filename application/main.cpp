@@ -13,9 +13,9 @@ using namespace std;
 
 int main() {
 
-    //UserInterface();
+    UserInterface();
 
-    runAllTest();
+    //runAllTest();
 
     return 0;
 }
