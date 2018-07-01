@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <limits>
+#include <map>
 #include "UserInterface.h"
 #include "File.h"
 #include "Exam.h"
@@ -171,8 +172,40 @@ void UserInterface::generateExam() {
     File file = File(filename);
 
     vector<Question> questions = file.extractQuestions();
+    int availableQuestionSize = questions.size();
 
-    //TODO: Make actual test variants
+    // have random numbers always
+    srand(time(NULL));
+    for(int i = 0; i < testsCount; i++) {
+        Test newTest = Test(questionsCount);
+
+        //this map saves the indexes we have used
+        map<int, bool> isSelected;
+
+        for(int j = 0; j < questionsCount; j++) {
+
+            //select a random index for vector questions
+            int index = rand() % availableQuestionSize;
+
+            //change the index until we find one which isn't in the test already
+            auto iterator = isSelected.find(index);
+            while(iterator != isSelected.end()) {
+                index = rand() % availableQuestionSize;
+                iterator = isSelected.find(index);
+            }
+
+            //add the question corresponding to the index in the vector
+            isSelected[index] = true;
+            newTest.addQuestion(questions[index]);
+        }
+        newExam.addTest(newTest);
+    }
+
+    for(int i = 0; i < testsCount; i++) {
+        File test = File(newExam.getString() + "-test-" + to_string(i));
+        vector<Question> questions = newExam.getTest(i).getQuestions();
+        test.write(StringInterpreter().questionsToString(questions));
+    }
 
     return;
 }

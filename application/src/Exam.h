@@ -18,6 +18,8 @@ class Exam : public PrintableObject {
 public:
     Exam(string _name, unsigned long _numberOfTests, unsigned long _numberOfQuestions);
     Exam &operator=(const Exam& other);
+    void addTest(Test& test);
+    Test getTest(int index);
 };
 
 

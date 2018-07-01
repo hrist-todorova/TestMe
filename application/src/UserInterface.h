@@ -18,6 +18,7 @@ private:
     void cleanStandardInput();
     void print(string text);
     Question getNewQuestion(int number);
+
 public:
     UserInterface();
 };

@@ -27,3 +27,17 @@ Exam& Exam::operator=(const Exam &other) {
     this->tests = other.tests;
     return *this;
 }
+
+/*
+ * Add a test to the vector with tests.
+ */
+void Exam::addTest(Test &test) {
+    this->tests.push_back(test);
+}
+
+/*
+ * Get the test at a specified index;
+ */
+Test Exam::getTest(int index) {
+    return this->tests[index];
+}
