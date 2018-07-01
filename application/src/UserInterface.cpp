@@ -105,27 +105,45 @@ void UserInterface::createQuestionsFile() {
  * Creates a question object.
  */
 Question UserInterface::getNewQuestion(int number) {
+    string usersInput;
+
     print("Please enter question number " + to_string(number));
-    string text;
-    getline(cin, text);
-    Question question = Question(text);
+    getline(cin, usersInput);
+    Question question = Question(usersInput);
 
     print("Please enter how many tags would you like to enter");
     int tagsCount;
     cin >> tagsCount;
     cleanStandardInput();
     vector<Tag> tagsVector;
-    string tag;
     for(int i = 0; i < tagsCount; i++) {
-        print("Please enter one word as tag number " + to_string(i));
-        cin >> tag;
+        print("Please enter one word as tag number " + to_string(i + 1));
+        cin >> usersInput;
         cleanStandardInput();
-        tagsVector.push_back(Tag(tag));
+        tagsVector.push_back(Tag(usersInput));
     }
     question.setTags(tagsVector);
 
+    print("Please enter how many right answers would you like to enter");
+    int rightAnswersCount;
+    cin >> rightAnswersCount;
+    cleanStandardInput();
+    for(int i = 0; i < rightAnswersCount; i++) {
+        print("Please enter right answer number " + to_string(i + 1));
+        getline(cin, usersInput);
+        question.addAnswer(Answer(usersInput, true));
+    }
 
-    //TODO: Add answers creation
+    print("Please enter how many wrong answers would you like to enter");
+    int wrongAnswersCount;
+    cin >> wrongAnswersCount;
+    cleanStandardInput();
+    for(int i = 0; i < wrongAnswersCount; i++) {
+        print("Please enter wrong answer number " + to_string(i + 1));
+        getline(cin, usersInput);
+        question.addAnswer(Answer(usersInput, false));
+    }
+
     return question;
 }
 
